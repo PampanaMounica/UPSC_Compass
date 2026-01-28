@@ -3,13 +3,16 @@ const axios = require("axios");
 const SearchLog = require("../models/SearchLog");
 
 const router = express.Router();
+const FLASK_URL = "https://upsc-ml-api.onrender.com/search";
+
 
 router.post("/", async (req, res) => {
   try {
     const response = await axios.post(
-      "http://127.0.0.1:5000/search",
-      req.body
-    );
+    FLASK_URL,
+    req.body
+  );
+
 
     const data = response.data;
 
