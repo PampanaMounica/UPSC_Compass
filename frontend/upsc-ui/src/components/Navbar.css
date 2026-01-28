@@ -1,0 +1,26 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  background: #eaeaea;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo {
+  font-weight: bold;
+  color: black;
+  font-size: 18px;
+}
+
+.links a {
+  margin-left: 25px;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  padding-bottom: 4px;
+}
+
+.links a.active {
+  border-bottom: 3px solid #0b3c5d;
+  color: #0b3c5d;
+}
