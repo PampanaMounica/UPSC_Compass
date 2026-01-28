@@ -3,7 +3,7 @@ const axios = require("axios");
 const SearchLog = require("../models/SearchLog");
 
 const router = express.Router();
-const FLASK_URL = "https://UPSC_Compass_1314.onrender.com/search";
+const FLASK_URL = "https://upsc-compass-1314.onrender.com/search";
 
 
 router.post("/", async (req, res) => {
