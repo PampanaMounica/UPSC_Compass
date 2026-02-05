@@ -1,18 +1,18 @@
 const express = require("express");
 const axios = require("axios");
-const SearchLog = require("../models/SearchLog");
 
 const router = express.Router();
-const FLASK_URL = "https://upsc-compass-1314.onrender.com/search";
 
+// 🔹 Flask ML API URL (Render)
+const FLASK_URL = "https://upsc-compass-1314.onrender.com/search";
 
 router.post("/", async (req, res) => {
   try {
+    // Call Flask ML service
     const response = await axios.post(
-    FLASK_URL,
-    req.body
-  );
-
+      FLASK_URL,
+      req.body
+    );
 
     const data = response.data;
 
@@ -23,22 +23,25 @@ router.post("/", async (req, res) => {
 
     const avg = arr =>
       arr.length
-        ? arr.reduce((s,x)=>s+(x.relevance||0),0)/arr.length
+        ? arr.reduce((sum, x) => sum + (x.relevance || 0), 0) / arr.length
         : 0;
 
-    // --- save to MongoDB ---
-    await SearchLog.create({
-      query: req.body.query,
+    // --- attach analytics to response (NO DB) ---
+    const analytics = {
       ncert_count: ncert.length,
       prelims_count: prelims.length,
       mains_count: mains.length,
-      avg_relevance: avg([...ncert,...prelims,...mains]),
-      avg_mrr: 0   // optional (you can compute later)
+      avg_relevance: avg([...ncert, ...prelims, ...mains]),
+      avg_mrr: 0   // placeholder (can compute later)
+    };
+
+    res.json({
+      ...data,
+      analytics
     });
 
-    res.json(data);
-
   } catch (err) {
+    console.error("Search route error:", err.message);
     res.status(500).json({ error: "Search failed" });
   }
 });

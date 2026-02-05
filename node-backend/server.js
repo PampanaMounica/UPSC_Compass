@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/db");
 const searchRoute = require("./routes/search");
 
 const app = express();
@@ -9,21 +8,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Database connection
-connectDB();   // 🔥 MongoDB connected here
-
-// 🔹 HEALTH CHECK ROUTE (IMPORTANT FOR RENDER)
+// 🔹 Health check (REQUIRED for Render)
 app.get("/", (req, res) => {
   res.status(200).send("UPSC Compass Backend Running");
 });
 
-// Routes
+// 🔹 Routes
 app.use("/search", searchRoute);
 
-// Port (Render requires this)
+// 🔹 Render dynamic port
 const PORT = process.env.PORT || 3001;
 
-// Start server
 app.listen(PORT, () => {
   console.log(`Node backend running on port ${PORT}`);
 });
