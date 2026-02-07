@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import Card from "../components/Card";
 
 // 🔹 Backend API (local + Render safe)
-const API_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:3001/search";
+const API_URL = "https://upsc-compass-backend-7qza.onrender.com/search";
+
 
 export default function Search() {
   const [query, setQuery] = useState("");
